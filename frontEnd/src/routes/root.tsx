@@ -1,9 +1,50 @@
-// import WebMap from "@arcgis/core/WebMap.js";
+import React, { useRef, useEffect } from "react";
+import Bookmarks from "@arcgis/core/widgets/Bookmarks";
+import Expand from "@arcgis/core/widgets/Expand";
+import MapView from "@arcgis/core/views/MapView";
+import WebMap from "@arcgis/core/WebMap";
 
 export function Root() {
+  const mapDiv = useRef(null);
+  useEffect(() => {
+    if (mapDiv.current) {
+      const webmap = new WebMap({
+        portalItem: {
+          id: "aa1d3f80270146208328cf66d022e09c",
+        },
+      });
+
+      const view = new MapView({
+        container: mapDiv.current,
+        map: webmap,
+      });
+
+      const bookmarks = new Bookmarks({
+        view,
+        editingEnabled: true,
+      });
+
+      const bkExpand = new Expand({
+        view,
+        content: bookmarks,
+        expanded: true,
+      });
+
+      view.ui.add(bkExpand, "top-right");
+
+      webmap.when(() => {
+        if (webmap.bookmarks && webmap.bookmarks.length) {
+          console.log("Bookmarks: ", webmap.bookmarks.length);
+        } else {
+          console.log("NO BOOKMARK ON THIS MAP");
+        }
+      });
+    }
+  }, [mapDiv]);
+
   return (
     <>
-      <div style={{ width: "100vh", height: "100vh" }}></div>
+      <div className="mapDiv" ref={mapDiv}></div>
     </>
   );
 }

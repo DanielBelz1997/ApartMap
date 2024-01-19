@@ -1,4 +1,4 @@
-@import "https://js.arcgis.com/4.28/@arcgis/core/assets/esri/themes/light/main.css";
+@import "https://js.arcgis.com/4.27/@arcgis/core/assets/esri/themes/light/main.css";
 html {
   box-sizing: border-box;
 }
@@ -98,7 +98,8 @@ form[action$="destroy"] button {
 }
 
 #root {
-  display: flex;
+  padding: 0;
+  margin: 0;
   height: 100%;
   width: 100%;
 }
@@ -379,5 +380,12 @@ i {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  width: 100%;
+}
+
+.mapDiv {
+  padding: 0;
+  margin: 0;
+  height: 100%;
   width: 100%;
 }
