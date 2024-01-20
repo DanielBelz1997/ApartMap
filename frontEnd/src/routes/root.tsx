@@ -6,6 +6,37 @@ import WebMap from "@arcgis/core/WebMap";
 
 export function Root() {
   const mapDiv = useRef(null);
+
+  const featureLayerData = [
+    {
+      attributes: {
+        OBJECTID: 1,
+        Name: "Feature 1",
+        Type: "Type A",
+        Status: "Active",
+      },
+      geometry: {
+        type: "point",
+        longitude: -118.805,
+        latitude: 34.027,
+      },
+    },
+    {
+      attributes: {
+        OBJECTID: 2,
+        Name: "Feature 2",
+        Type: "Type B",
+        Status: "Inactive",
+      },
+      geometry: {
+        type: "point",
+        longitude: -118.81,
+        latitude: 34.03,
+      },
+    },
+    // Add more features as needed
+  ];
+
   useEffect(() => {
     if (mapDiv.current) {
       const webmap = new WebMap({
