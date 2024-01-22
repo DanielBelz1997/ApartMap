@@ -1,0 +1,17 @@
+* {
+  box-sizing: border-box;
+  /* so we can get full control of the application */
+  margin: 0;
+  padding: 0;
+}
+
+#root {
+  height: 100vh;
+}
+
+/* the sizing of map container */
+/* otherwise the map aont show */
+
+.leaflet-container {
+  height: 100vh;
+}
