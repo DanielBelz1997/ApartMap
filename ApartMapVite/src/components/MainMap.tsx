@@ -1,20 +1,15 @@
-import { LatLngTuple } from "leaflet";
+import { LatLngExpression } from "leaflet";
+import { Markers } from "../routes/RootPage";
 import "../styles/root.css";
 import "leaflet/dist/leaflet.css";
-import { MapContainer, TileLayer, Marker } from "react-leaflet";
-
-interface Marker {
-  geocode: LatLngTuple; // Ensure geocode has the correct type
-  id: number;
-  Popup: string;
-  position: number[]; // Allow for either string or number IDs
-}
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import { Key } from "react";
 
 interface MapProps {
   center: number[];
   attribution?: string;
-  url: string;
-  markers: Marker[]; // Annotate markers as an array of Marker objects
+  url: string; // Annotate markers as an array of Marker objects
+  markers: Markers[];
 }
 
 export function MainMap({ center, attribution, url, markers }: MapProps) {
@@ -22,9 +17,19 @@ export function MainMap({ center, attribution, url, markers }: MapProps) {
   return (
     <MapContainer center={center} zoom={13}>
       <TileLayer attribution={attribution} url={url} scrollWheelZoom={false} />
-      {markers.map((marker) => (
-        <Marker position={marker.geocode} key={marker.id} />
-      ))}
+      {markers.map(
+        (marker: {
+          popup: string;
+          position: LatLngExpression;
+          id: Key | null | undefined;
+        }) => (
+          <>
+            <Marker position={marker.position} key={marker.id}>
+              <Popup>{marker.popup}</Popup>
+            </Marker>
+          </>
+        )
+      )}
     </MapContainer>
   );
 }

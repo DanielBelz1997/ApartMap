@@ -1,5 +1,11 @@
 import { MainMap } from "../components/MainMap";
 
+export interface Markers {
+  id: number;
+  position: [number, number];
+  popup: string;
+}
+
 export function RootPage() {
   const centerProp = [32.109333, 34.855499];
   const attribution =
@@ -8,27 +14,9 @@ export function RootPage() {
 
   // demo data need to come from backend
 
-  const markers = [
-    {
-      id: 1,
-      goecode: [33.109333, 35.855499, undefined],
-      Popup: "hello, im pop up number 1", //html
-    },
-    {
-      id: 2,
-      goecode: [34.229333, 33.445499, undefined],
-      Popup: "hello, im pop up number 2",
-    },
-    {
-      id: 3,
-      goecode: [38.109333, 35.855499, undefined],
-      Popup: "hello, im pop up number 3",
-    },
-    {
-      id: 4,
-      goecode: [37.109333, 35.855499, undefined],
-      Popup: "hello, im pop up number 4",
-    },
+  const markers: Markers[] = [
+    { id: 1, position: [32.2323, 38.5454], popup: "hello" },
+    { id: 1, position: [33.2323, 38.5454], popup: "hello num 2" },
   ];
   return (
     <MainMap
