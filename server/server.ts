@@ -1,8 +1,10 @@
 import "dotenv/config.js";
 import Fastify from "fastify";
-import connect from "./db/db";
+import { dbConnector } from "./db/dbConnector";
 
-const envToLogger = {
+import { markersRoutes } from "./routes/markers";
+
+export const envToLogger = {
   development: {
     transport: {
       target: "pino-pretty",
@@ -19,14 +21,16 @@ const fastify = Fastify({
   logger: envToLogger["development"] ?? true,
 });
 
-fastify.register(connect);
+// database connection before routes
 
-fastify.get("/", async (request, reply) => {
-  return { hello: "world!" };
-});
+fastify.register(dbConnector);
+// total routes, there is no other way
+
+fastify.register(markersRoutes);
 
 const start = async () => {
   try {
+    // 0.0.0.0 : best for docker
     await fastify.listen({ port: 3000 });
   } catch (error) {
     fastify.log.error("error opening the server", error);
