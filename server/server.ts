@@ -24,6 +24,7 @@ const fastify = Fastify({
 // database connection before routes
 
 fastify.register(dbConnector);
+
 // total routes, there is no other way
 
 fastify.register(markersRoutes);
